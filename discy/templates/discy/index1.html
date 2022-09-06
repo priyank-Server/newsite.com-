@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Question sheet</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" type="text/css" href="{% static 'discy/question1.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,600,700&display=swap"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+</head>
+<body>
+
+                    <div class="col-md-12  col-xs-12 col-sm-12 ask-question">
+                        <button class="btn btn-info btn-lg btn-insign1" data-target="#ask_a_question" data-toggle="modal"
+                                type="button">Ask A Question
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal ask-modal fade" id="ask_a_question" role="dialog">
+                            <div class="modal-dialog askque">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header ask-head">
+                                         <div class="col-md-10 col-sm-10 col-xs-10 edit-question">
+                                                <h2>Edit Questions</h2>
+                                                <p>How Likely are you to recommend our product...</p>
+                                            </div>
+                                        <h4 class="modal-title">
+                                        </h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 body-main">
+                                            <div class="col-md-5 col-sm-5 col-xs-5 main-image">
+                                            </div>
+                                            <div class="col-md-7 col-sm-7 col-xs-7">
+                                                <form action="{% url 'discy:askquestion' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="first_name" id="user" value={{ user.first_name }}>
+                                                    <input type="hidden" name="last_name" id="user" value={{ user.last_name }}>
+                                                     <input type="hidden" name="user" id="user" value={{ user.id }}>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group question-type">
+                                                            <label>Question Type:</label>
+                                                            <input type="text" name="question_category"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group how-likely">
+                                                            <label>Question:</label>
+                                                            <input type="text" name="question_text"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-xs-12 button-div">
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</body>
+</html>

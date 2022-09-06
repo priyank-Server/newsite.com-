@@ -1,0 +1,163 @@
+{% extends 'discy/base.html'%}
+{% load static %}
+{% block content %}
+<div class="container-fluid nav-div main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!--side-bar-->
+                <div class="col-md-2 nav-home">
+                    <ul>
+                        <li class="active">
+                            <a href="#">
+                                <h5><i class="fa fa-home"></i> Home {{ user.get_full_name }}</h5>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-book"></i>
+                                Question</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i aria-hidden="true" class="fa fa-quora"></i>New Questions</a></li>
+                                <li><a href="#"><i aria-hidden="true" class="fa fa-quora"></i>Tranding Questions</a>
+                                </li>
+                                <li><a href="#"><i aria-hidden="true" class="fa fa-quora"></i>Most read Questions</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!---top questions--->
+                    <div class="col-md-12 padding0">
+                        <div class="col-md-12 top-div">
+                            <h4>Top Questions</h4>
+                        </div>
+                        <div class="col-md-12 top2-div">
+{#                            {% for i in questions %}#}
+{#                            <div class="col-md-12 top1-div">#}
+{#                                <h5>{{i.question_text}}</h5>#}
+{#                                <a href="#"> <i aria-hidden="true" class="fa fa-commenting"></i>4 Answers</a>#}
+{#                            </div>#}
+{#                            {% endfor %}#}
+                        </div>
+                    </div>
+                </div>
+                <!---middle-tab--->
+                <div class="col-md-7 middle-table">
+                    <ul class="nav nav-tabs nav-middle">
+                        <li class="active">
+                            <a data-toggle="tab" href="#recent_questions">Search results....</a>
+                        </li>
+                    </ul>
+                    <!--tab-content-->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="recent_questions">
+                            {% for i in searched %}
+                            <div class="col-md-12 tabcontent-div">
+                                <div class="col-md-2 padding0 tab-text dropdown">
+                                    <a class="dropbtn" href="#">
+                                        <img class="img-responsive" alt="author-img" src="{{ i.user.image.url }}"/>
+                                    </a>
+                                    <div class="dropdown-content">
+                                        <div class="col-md-12 dropdown-image">
+                                            <a>
+                                                <img class="img-responsive" src="{{ i.user.image.url }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-12 dropdown-name">
+                                            <h6>{{ i.get_full_name }}</h6>
+                                            <ul>
+                                                <li>
+                                                    <img class="img-responsive" src="{%static 'discy/img/placeholder.svg' %}"/>
+                                                    <p>Gurgaon ,Haryana</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-md-12 dropdown-text">
+                                            <a href="#"><i aria-hidden="true" class="fa fa-question-circle"></i>3
+                                                Questions</a>
+                                            <a href="#"><i aria-hidden="true" class="fa fa-commenting"></i>12
+                                                Answers</a>
+                                            <a href="#"><i aria-hidden="true" class="fa fa-eye"></i>146 Points</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!---author-details-->
+                                <div class="col-md-10 padding0">
+                                    <div class="col-md-12 author-details">
+                                        <h5>{{i.first_name}} {{i.last_name}}</h5>
+                                        <p>Asked:{{i.pub_date }}</p>
+                                    </div>
+                                    <div class="col-md-12 author-quote">
+                                        <a href="#"><h4>{{i.question_text}}</h4></a>
+                                    </div>
+                                    {% for a in recent_answer %}
+                                    <div class="col-md-12 padding0">
+                                        <p class="author-para">{{ a.answer_text }}</p>
+                                    </div>
+                                        {% endfor %}
+                                    <div class="col-md-12 padding0">
+                                        <button class="author-button">English</button>
+                                        <button class="author-button">Language</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 answer-sec">
+                                        <a href="#"> <i aria-hidden="true" class="fa fa-commenting"></i> 4 Answer</a>
+                                        <a href="#"><i aria-hidden="true" class="fa fa-eye"></i>1k Views</a>
+                                        <button>Answer</button>
+                                    </div>
+                                    <div class="col-md-12 answer1-sec">
+                                        <a href="#"><i aria-hidden="true" class="fa fa-arrow-circle-up"></i> Upvote
+                                            :1.5k</a>
+                                        <a class="answer2-sec" href="#"><i aria-hidden="true"
+                                                                           class="fa fa-arrow-circle-down"></i><i
+                                                aria-hidden="true" class="fa fa-ellipsis-h"></i></a>
+                                    </div>
+                                <!---answer-highlight-->
+                                <div class="col-md-12 col-xs-12">
+                                    {% for answer in answers %}
+                                        {% if answer.question_id.id == i.id %}
+                                    <div class="row ans1-added">
+                                        <div class="col-md-12 answer-highlight ans-added">
+                                            <div class="col-md-12 addcomment1">
+                                                <a href="#"><img src="{{ answer.user.image.url }}"/>{{answer.user.first_name}} {{answer.user.last_name}}</a>
+                                            </div>
+                                            <div class="col-xs-12 padding0">
+                                                <p>{{answer.answer_text}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+                <!---Ask a Question--->
+                <div class="col-md-3 col-xs-12 col-sm-12 aska-div">
+                    <div class="col-md-12  col-xs-12 col-sm-12 ask-question">
+                        <button class="btn btn-info btn-lg btn-insign1" data-target="#ask_a_question1" data-toggle="modal"
+                                 {% if user.is_authenticated %}
+                                    type="button"><a href="{% url 'discy:index1' %}">Ask A Question</a>
+                                 {% else %}
+                                    type="button"><a href="{% url 'discy:index' %}">Ask A Question</a>
+                                 {% endif %}
+                        </button>
+                    </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
